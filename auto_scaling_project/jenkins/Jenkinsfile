@@ -1,0 +1,17 @@
+pipeline {
+    agent any
+    stages {
+        stage('Terraform Apply') {
+            steps {
+                sh 'terraform init'
+                sh 'terraform apply -auto-approve'
+            }
+        }
+        stage('Deploy Docker Container') {
+            steps {
+                sh 'docker build -t myapp .'
+                sh 'docker run -d -p 80:80 myapp'
+            }
+        }
+    }
+}
