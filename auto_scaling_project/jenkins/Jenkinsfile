@@ -1,16 +1,20 @@
 pipeline {
     agent any
     stages {
-        stage('Terraform Apply') {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Pratiklanjewar2025/project_autoscaling.git'
+            }
+        }
+        stage('Deploy with Terraform') {
             steps {
                 sh 'terraform init'
                 sh 'terraform apply -auto-approve'
             }
         }
-        stage('Deploy Docker Container') {
+        stage('Start Docker Containers') {
             steps {
-                sh 'docker build -t myapp .'
-                sh 'docker run -d -p 80:80 myapp'
+                sh 'docker-compose up -d'
             }
         }
     }
