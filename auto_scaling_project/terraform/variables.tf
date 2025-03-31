@@ -1,3 +1,4 @@
-variable "instance_type" {
-  default = "t2.micro"
+variable "terminate_instances" {
+  type = list(string)
+  default = []
 }
