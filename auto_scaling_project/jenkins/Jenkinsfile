@@ -1,20 +1,19 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                git 'https://github.com/Pratiklanjewar2025/project_autoscaling.git'
+                git 'https://github.com/your-repo/project_autoscaling.git'
             }
         }
-        stage('Deploy with Terraform') {
+        stage('Deploy Server') {
             steps {
-                sh 'terraform init'
-                sh 'terraform apply -auto-approve'
+                sh 'bash scripts/trigger_autoscaling.sh'
             }
         }
-        stage('Start Docker Containers') {
+        stage('Cleanup Unused Servers') {
             steps {
-                sh 'docker-compose up -d'
+                sh 'bash scripts/delete_unused_servers.sh'
             }
         }
     }
