@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 # Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install Flask==2.3.2
 
 # Expose port Flask is running on
 EXPOSE 5000
